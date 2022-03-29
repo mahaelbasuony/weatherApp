@@ -1,0 +1,13 @@
+.list {
+    background-color: rgb(219, 218, 214);
+    display: flex;
+    justify-content: center;
+}
+
+.weather_list {
+    height: 250px;
+    padding-top: 24px;
+    display: flex;
+    justify-content: center;
+    width: 70%;
+}

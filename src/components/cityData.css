@@ -1,0 +1,44 @@
+.view_data {
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+    margin-left: 12px;
+    width: 70%;
+    padding-right: 24px;
+}
+
+.country_name {
+    font-size: x-large;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.temp_degree {
+    font-size: x-large;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.feel_like {
+    font-weight: bold;
+}
+
+.temp_details {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-top: 8px;
+    border-left: 1px solid red;
+}
+
+.speed_pressure span {
+    padding-left: 12px;
+}
+
+.humidity_temp span {
+    padding-left: 12px;
+}
+
+.visibility span {
+    padding-left: 12px;
+}
