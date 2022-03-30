@@ -1,11 +1,17 @@
 import React from "react";
+import { FC } from "react";
 import { Annotation } from "react-simple-maps";
 import { ComposableMap, Geographies, Geography } from "react-simple-maps";
 import "./MapApi.css";
 const geoUrl =
   "https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json";
 
-const MapApi = ({ name, lon, lat }) => {
+  type Props={
+    name: string,
+    lon: number,
+    lat:number
+  }
+const MapApi:FC<Props> = ({ name, lon, lat }) => {
   return (
     <ComposableMap
       projection="geoAzimuthalEqualArea"
@@ -38,7 +44,7 @@ const MapApi = ({ name, lon, lat }) => {
           x="40"
           className="text"
           textAnchor=""
-          alignmentBaseline="end"
+          // alignmentBaseline="end"
           fill="#000"
         >
           {name}

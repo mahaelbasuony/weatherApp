@@ -3,17 +3,70 @@ import {
   BiCloudLightRain,
   BiCloudRain,
   BiSun,
-  IconName,
+ 
 } from "react-icons/bi";
-import Map from "./map";
+
 
 import "./viewFilteredCity.css";
 import { useState, useEffect } from "react";
 import FlagEmoji from "./flagEmoji";
 
 import MapApi from "./MapApi";
-function ViewFilteredCity({ country }) {
-  const [weatherData, setWeatherData] = useState([]);
+import { FC } from "react";
+type Props={
+  country: string
+}
+
+type WeatherObject = {
+  coord: {
+    lon: number;
+    lat: number;
+  };
+  weather: [
+    {
+      id: number;
+      main: string;
+      description: string;
+      icon: string;
+    }
+  ];
+  base: string;
+  main: {
+    temp: number;
+    feels_like: number;
+    temp_min: number;
+    temp_max: number;
+    pressure: number;
+    humidity: number;
+  };
+  visibility: number;
+  wind: {
+    speed: number;
+    deg: number;
+  };
+  clouds: {
+    all: number;
+  };
+  dt: number;
+  sys: {
+    type: number;
+    id: number;
+    country: string;
+    sunrise: number;
+    sunset: number;
+  };
+  timezone: number;
+  id: number;
+  name: string;
+  cod: number;
+};
+type MapApiObject={
+  name: string,
+  lon: number,
+  lat: number
+}
+const ViewFilteredCity:FC<Props>=({ country }) =>{
+  const [weatherData, setWeatherData] = useState<WeatherObject | null>(null);
 
   const getData = () => {
     fetch(
@@ -31,7 +84,7 @@ function ViewFilteredCity({ country }) {
     getData();
   }, []);
 
-  const val = weatherData.weather?.[0]?.main;
+  const val = weatherData?.weather?.[0]?.main;
   const icon = () => {
     switch (val) {
       case "Clouds":
@@ -55,43 +108,43 @@ function ViewFilteredCity({ country }) {
       <div className="country_filtered_data">
         <div className="country_filtered_name_desc">
           <span className="country_filtered_name">
-            {weatherData?.name}, {weatherData.sys?.country}
-            {weatherData.sys?.country && (
+            {weatherData?.name}, {weatherData?.sys?.country}
+            {weatherData?.sys?.country && (
               <FlagEmoji countryCode={weatherData.sys?.country} />
             )}
           </span>
           <span className="country_filtered_desc">
             {" "}
-            {weatherData.weather?.[0]?.description}
+            {weatherData?.weather?.[0]?.description}
           </span>
         </div>
         <div className="temp_filtered_degree">
-          <span>{Math.floor(weatherData.main?.temp - 273.15)}°C </span>
+          <span>{Math.floor((weatherData?.main?.temp  ) || 0 - 273.15)}°C </span>
           <span>
-            temperature from {Math.floor(weatherData.main?.temp_min - 273.15)}{" "}
-            to {Math.floor(weatherData.main?.temp_max - 273.15)} °C
+            temperature from {Math.floor((weatherData?.main?.temp_min ) || 0- 273.15)}{" "}
+            to {Math.floor((weatherData?.main?.temp_max ) || 0- 273.15)} °C
           </span>
-          <span> {weatherData.wind?.speed?.toFixed(1)}m/s ,</span>
+          <span> {(weatherData?.wind?.speed?.toFixed(1)) || 0}m/s ,</span>
           <span>
-            {weatherData.main?.pressure}
+            {weatherData?.main?.pressure}
             hPa
           </span>
-          <span> Humidity: {weatherData.main?.humidity}% </span>
+          <span> Humidity: {weatherData?.main?.humidity}% </span>
         </div>
         <div className="coords_temp_min_max">
           {" "}
           <span className="coords"> Geo coords</span>{" "}
           <span className="temp_min_max">
-            [{weatherData.coord?.lon}, {weatherData.coord?.lat} ]
+            [{weatherData?.coord?.lon}, {weatherData?.coord?.lat} ]
           </span>
         </div>
       </div>
 
       <div className="map">
-        <MapApi
-          name={weatherData?.name}
-          lon={weatherData.coord?.lon}
-          lat={weatherData.coord?.lat}
+        <MapApi 
+          name={weatherData?.name || ''}
+          lon={weatherData?.coord?.lon || 0}
+          lat={weatherData?.coord?.lat || 0}
         />
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import CityData from "./cityData";
 
 import "./searchByCountry.css";
@@ -7,10 +7,10 @@ import ViewFilteredCity from "./viewFilteredCity";
 function SearchByCountry() {
   const [searchCountry, setSearchCountry] = useState("");
   // const [cities,setcities]= useState('');
-  const city = useRef(null);
-  const handleSearchBy = (e) => {
+  const city = useRef<any | null>(null);
+  const handleSearchBy = (e : React.ChangeEvent<any>) => {
     e.preventDefault();
-    if (city.current.value === "") setSearchCountry("");
+    if (city.current?.value  === "") setSearchCountry("");
     else {
       setSearchCountry(city.current.value);
       city.current.value = "";
@@ -31,7 +31,7 @@ function SearchByCountry() {
           list="browsers"
           name="browser"
           id="browser"
-          autoComplete={false}
+          autoComplete="false"
           onChange={handleInputVal}
         />
         <button
